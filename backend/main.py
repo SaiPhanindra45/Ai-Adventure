@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+import os
+import uvicorn
 from core.config import settings
 from routers import story, job
 from db.database import create_tables
@@ -28,4 +29,5 @@ app.include_router(job.router, prefix=settings.API_PREFIX)
 
 if __name__ == "__main__":
     import uvicorn
+    port = int(os.getenv("PORT", 8000))
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
